@@ -1,0 +1,325 @@
+<html>
+
+<head>
+    <!-- 防止中文乱码 -->
+    <meta charset="utf-8">
+    <title>音乐播放器</title>
+    <!-- 引入第三方插件 -->
+    <link rel="stylesheet" href="glyphicon.css">
+    <style>
+        body {
+            /* 去除body自带的8px的外边距 */
+            margin: 0;
+
+            /* 背景颜色 */
+            background-color: pink;
+
+            /* 设置鼠标  default 默认的图标 */
+            cursor: default;
+
+            /* 设置行高 */
+            height: 100%;
+
+            /* 为了子元素能够居中 */
+            display: flex;
+
+            /* 子元素水平居中 */
+            justify-content: center;
+
+            /* 子元素垂直居中 */
+            align-items: center;
+
+            /*弹性布局的方向  竖直方向 */
+            flex-direction: column;
+        }
+
+        main {
+            /* 设置 宽高 */
+            width: 300px;
+            height: 300px;
+
+            /* 设置圆弧 */
+            border-radius: 11px;
+
+            /* 盒子阴影 */
+            box-shadow: 2px 4px 8px #111;
+
+            /* 背景图片 */
+            background-image: url(wf.png);
+            /* 背景图片  不重复 */
+            background-repeat: no-repeat;
+
+            /* 背景图片大小   如果设置一个值 另外一个值auto */
+            background-size: 300px;
+
+            /* 动画效果 把背景图片的位置移动下  当一首歌播放完的时候，点击下一首的时候 */
+            /* 动画时间  动画名字 动画次数 动画速率 */
+            /* 动画时间 */
+            animation-name: 0.5s;
+
+        }
+
+        /* 关键帧动画  背景图片位置上的变化 */
+        @keyframes slideBg {
+
+            /* form 表单 */
+            from {
+                /* 背景图片的位置 */
+                background-position: 300px 0px;
+            }
+
+            to {
+                background-position: 0px 0px;
+            }
+        }
+
+        header {
+            /* 左上角圆弧形状 */
+            border-top-left-radius: 10px;
+            /* 右上角圆弧形状 */
+            border-top-right-radius: 10px;
+
+            /* 透明度  1:不透明 0.5 半透明*/
+            opacity: 0.5;
+
+            /* 背景颜色 */
+            background-color: rgb(22, 22, 22);
+
+            /* 盒子大小 */
+            box-sizing: border-box;
+
+            height: 96px;
+        }
+
+        /* header, progress{
+        box-sizing: border-box;
+
+       } */
+        /* 进度条 */
+        progress {
+            height: 4px;
+            box-sizing: border-box;
+
+            /* 把标签默认的内外边距取消掉 */
+            padding: 0px;
+            margin: 0px;
+
+            /*背景颜色  */
+            background: #111;
+
+            /* 去掉边框 */
+            border:none;
+
+            width: 300px;
+            opacity: 0.5;
+
+            /* 去掉下划线 */
+            /* text-decoration: none; */
+        }
+         /* 谷歌浏览器 */
+        ::-webkit-progress-bar{
+            /* 整体颜色 */
+            background-color: rgb(200, 87, 88);
+        }
+            /* 已完成的进度的颜色 */
+        ::-webkit-progress-value{
+            background-color: rgb(1, 87, 88)
+        }
+        /* 火狐浏览器 */
+        ::-moz-progress-bar{
+            /* 已完成的进度的颜色 */
+            background-color: rgb(200, 87, 88);
+        }
+        footer{
+            height: 200px;
+            /* 左下 */
+            border-bottom-left-radius: 10px;
+
+            /* 右下角的圆弧 */
+            border-bottom-right-radius: 10px;
+
+            box-sizing: border-box;
+            opacity: 0.95;
+            background-color: rgb(100, 35, 49);
+        }
+
+        h1{
+            margin: 0px;
+            /* 文本居中 */
+            text-align: center;
+            color: white;
+            /* 设置字体的粗细 */
+            font-weight: normal;
+            /* 设置上内边距 */
+            padding-top: 15px;
+            /* 字体大小 */
+            font-size: 30px;
+        }
+
+        h2{
+            /* 文本居中 */
+            text-align: center;
+            /* 字体颜色 */
+            color: white;
+            margin: 0;
+            /* 字体正常粗细 */
+            font-weight: normal;
+            /* 字体大小 */
+            font-size: 18px;
+            font-family: 楷体;
+        }
+        time{
+            /* 文本居中 */
+            text-align: center;
+            /* background-color: yellowgreen; */
+            /* 标签水平居中 */
+            margin: 0px auto;
+            /* 当文本居中和水平居中没有变化时
+            把 time 标签转换成 块标签 */
+            display: block;
+            padding: 16px;
+            font-size: 20px;
+            /* normal=400正常粗细   */
+            font-weight: 100;
+            font-family: 楷体;
+            color: white;
+        }
+
+        section{
+            text-align: center;
+            color: rgb(134, 124, 114);
+            font-weight: normal;
+        }
+        /* 查找section下的  第一个span标签 */
+        section span:nth-child(1):hover{
+              color: white;
+              /* 第一个左箭头盒子阴影 */
+              text-shadow: 0px 0px 20px rgb(155, 145, 135);
+        }
+
+        section span:nth-child(2):hover{
+            color: white;
+              /* 第中间暂停盒子阴影 */
+              text-shadow: 0px 0px 30px rgb(155, 145, 135);
+        }
+
+        section span:nth-child(3):hover{
+            color: white;
+              /* 第三个右箭头盒子阴影 */
+              text-shadow: 0px 0px 20px rgb(155, 145, 135);
+        }
+
+        section span:nth-child(1){
+            font-size: 32px;
+            /* 相对定位(适合调小的值) */
+            position: relative;
+            left: -24px;
+            top: -13px;
+        }
+
+        section span:nth-child(2){
+            font-size: 64px;
+            /* 行高 */
+            line-height: 64px;
+            /* border: 1px solid palegreen; */
+           
+        }
+
+        section span:nth-child(3){
+            font-size: 32px;
+            position: relative;
+            top: -13px;
+            left: 20px;
+        }
+        aside{
+            text-align: center;
+            padding-top: 20px;
+            color: rgb(134, 124, 114);
+        }
+
+        aside progress{
+            width: 100px;
+            height: 2px;
+            /* 调试位置幅度不大用相对定位 */
+            position: relative;
+            top: -8px;
+            left: -2px;
+        }
+        aside span:hover{
+            color: white;
+            /* 文本的阴影 */
+            text-shadow: 0 0 20px rgb(175, 165, 155);
+        }
+
+        address{
+            /* 字体粗细 */
+            /* font-weight: */
+            /* 字体样式(斜体，正体) */
+            font-style: normal;
+            /* 上右下左 */
+            margin: 100px auto 30px auto;
+            color: lightcoral;
+            text-shadow: 0px 0px 1px blue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 播放音频 -->
+    <audio></audio>
+    <!-- 设置网站主体部分 -->
+    <main>
+        <!-- 网页的头部 -->
+        <header>
+            <h1>传奇</h1>
+            <h2>王菲</h2>
+        </header>
+        <!-- content 内容区域 -->
+        <!-- 进度条  value="0" 当前进度-->
+        <progress value="0"></progress>
+
+        <!-- 页脚 -->
+        <footer>
+            <!-- 显示时间 -->
+            <time>00:00</time>
+            <!-- div 完全一样 -->
+            <section>
+                <!-- 上一首图标 
+                  class 显示字体图标
+                  onclick  点击span 回到上一首-->
+                <span class="glyphicon glyphicon-backward" onclick="pre()"></span>
+                <!-- 控制两个图标的显示
+                 glyphicon 字体图标
+                 pauseOrContinue  暂停   -->
+                <span class="glyphicon glyphicon-pause" onclick="pauseOrContinue()"></span>
+
+                <!-- 下一首 -->
+                <span class="glyphicon glyphicon-forward" onclick="next()"></span>
+
+            </section>
+
+            <!-- 旁边 显示音量增大 减小  控制音量的进度条-->
+            <aside>
+                <!-- 音量减小 -->
+                <span class="glyphicon glyphicon-volume-down" onclick="volumeDown()"></span>
+                <!--控制音量的进度条  -->
+                <progress value="0.5"></progress>
+
+                <!-- 音量增大的标签 -->
+                <span class="glyphicon glyphicon-volume-up" onclick="volumeUp()"></span>
+
+            </aside>
+        </footer>
+
+    </main>
+
+    <!-- address:地址   显示地址 电话 -->
+    <address>
+        Powered By ZhiYou
+    </address>
+
+     <script src="playlist.js"></script>
+     <script src="audio.js"></script>
+</body>
+
+</html>
